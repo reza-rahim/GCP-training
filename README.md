@@ -6,7 +6,7 @@ Requirement  | Specification
 CPU | 4
 Memory | 15 GB
 OS | Ubuntu 18.04 LTS
-Disk | 10 GB
+Disk | 30 GB
 
 2. ssh to the machine.
 
