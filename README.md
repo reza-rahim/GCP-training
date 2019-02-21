@@ -22,7 +22,7 @@ npm install -g wetty
 
 
 adduser --disabled-password --gecos "" trainee
-echo -e "P@ssword\nP@ssword" | sudo passwd trainee 
+echo -e "PASSWORD\nPASSWORD" | sudo passwd trainee 
 usermod -aG sudo trainee 
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
 systemctl restart sshd
@@ -131,7 +131,6 @@ alias redis="sudo docker run -v /opt/redislabs/resolv.conf:/etc/resolv.conf -v /
 11. You can log into the instance using ssh client 
 ```
   ssh trainee@publicip
-  password: P@ssword
 ```  
   
 12. After login to ssh console, start the wetty deamon
