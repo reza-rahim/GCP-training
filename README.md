@@ -67,24 +67,24 @@ docker run --name bind -d -v /opt/redislabs/resolv.conf:/etc/resolv.conf  --net 
 
 # create the north cluster
 
-sudo docker run -d  --cap-add=ALL --name n1  -v /opt/redislabs/resolv.conf:/etc/resolv.conf -v /opt/redislabs/log/n1/:/var/opt/redislabs/log -p 21443:8443 -p 41443:9443 --restart=always  --hostname  n1.north.redislabs-training.org --net redislabs --ip 172.18.0.21  redislabs/redis
-sudo docker run -d  --cap-add=ALL --name n2  -v /opt/redislabs/resolv.conf:/etc/resolv.conf -v /opt/redislabs/log/n2/:/var/opt/redislabs/log -p 22443:8443 -p 42443:9443 --restart=always  --hostname  n2.north.redislabs-training.org  --net redislabs --ip 172.18.0.22   redislabs/redis
-sudo docker run -d  --cap-add=ALL --name n3  -v /opt/redislabs/resolv.conf:/etc/resolv.conf -v /opt/redislabs/log/n3/:/var/opt/redislabs/log -p 23443:8443 -p 43443:9443 --restart=always  --hostname  n3.north.redislabs-training.org  --net redislabs --ip 172.18.0.23    redislabs/redis
+docker run -d  --cap-add=ALL --name n1  -v /opt/redislabs/resolv.conf:/etc/resolv.conf  -p 21443:8443 -p 41443:9443 --restart=always  --hostname  n1.north.redislabs-training.org --net redislabs --ip 172.18.0.21  redislabs/redis
+docker run -d  --cap-add=ALL --name n2  -v /opt/redislabs/resolv.conf:/etc/resolv.conf  -p 22443:8443 -p 42443:9443 --restart=always  --hostname  n2.north.redislabs-training.org  --net redislabs --ip 172.18.0.22   redislabs/redis
+docker run -d  --cap-add=ALL --name n3  -v /opt/redislabs/resolv.conf:/etc/resolv.conf -p 23443:8443 -p 43443:9443 --restart=always  --hostname  n3.north.redislabs-training.org  --net redislabs --ip 172.18.0.23    redislabs/redis
 
-sudo docker exec --user root n1 bash -c "iptables -t nat -I PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 5300"
-sudo docker exec --user root n2 bash -c "iptables -t nat -I PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 5300"
-sudo docker exec --user root n3 bash -c "iptables -t nat -I PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 5300"
+docker exec --user root n1 bash -c "iptables -t nat -I PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 5300"
+docker exec --user root n2 bash -c "iptables -t nat -I PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 5300"
+docker exec --user root n3 bash -c "iptables -t nat -I PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 5300"
 
 
 # create the south cluster
 
-sudo docker run -d  --cap-add=ALL  -v /opt/redislabs/resolv.conf:/etc/resolv.conf -v /opt/redislabs/log/s1/:/var/opt/redislabs/log --name s1 -p 31443:8443 -p 51443:9443 --restart=always --hostname  s1.south.redislabs-training.org   --net redislabs --ip 172.18.0.31  redislabs/redis
-sudo docker run -d  --cap-add=ALL  -v /opt/redislabs/resolv.conf:/etc/resolv.conf -v /opt/redislabs/log/s2/:/var/opt/redislabs/log --name s2 -p 32443:8443 -p 52443:9443 --restart=always --hostname s2.south.redislabs-training.org   --net redislabs --ip 172.18.0.32  redislabs/redis
-sudo docker run -d  --cap-add=ALL  -v /opt/redislabs/resolv.conf:/etc/resolv.conf -v /opt/redislabs/log/s3/:/var/opt/redislabs/log --name s3 -p 33443:8443 -p 53443:9443 --restart=always  --hostname s3.south.redislabs-training.org   --net redislabs --ip 172.18.0.33   redislabs/redis
+docker run -d  --cap-add=ALL  -v /opt/redislabs/resolv.conf:/etc/resolv.conf --name s1 -p 31443:8443 -p 51443:9443 --restart=always --hostname  s1.south.redislabs-training.org   --net redislabs --ip 172.18.0.31  redislabs/redis
+docker run -d  --cap-add=ALL  -v /opt/redislabs/resolv.conf:/etc/resolv.conf --name s2 -p 32443:8443 -p 52443:9443 --restart=always --hostname s2.south.redislabs-training.org   --net redislabs --ip 172.18.0.32  redislabs/redis
+docker run -d  --cap-add=ALL  -v /opt/redislabs/resolv.conf:/etc/resolv.conf --name s3 -p 33443:8443 -p 53443:9443 --restart=always  --hostname s3.south.redislabs-training.org   --net redislabs --ip 172.18.0.33   redislabs/redis
 
-sudo docker exec --user root s1 bash -c "iptables -t nat -I PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 5300"
-sudo docker exec --user root s2 bash -c "iptables -t nat -I PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 5300"
-sudo docker exec --user root s3 bash -c "iptables -t nat -I PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 5300"
+docker exec --user root s1 bash -c "iptables -t nat -I PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 5300"
+docker exec --user root s2 bash -c "iptables -t nat -I PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 5300"
+docker exec --user root s3 bash -c "iptables -t nat -I PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 5300"
 
 
 #set up the ftp server
@@ -109,7 +109,7 @@ trainee ALL=(ALL) NOPASSWD:ALL
 
 ```
 
-8. add the following to .bashrc
+8. add the following to user trainess's .bashrc 
 
 ```
 alias n1="sudo docker exec -it n1 bash "
