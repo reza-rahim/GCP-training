@@ -109,7 +109,7 @@ trainee ALL=(ALL) NOPASSWD:ALL
 
 ```
 
-8. add the following to user trainess's .bashrc 
+8. add the following to user trainee's .bashrc 
 
 ```
 alias n1="sudo docker exec -it n1 bash "
