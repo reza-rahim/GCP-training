@@ -23,7 +23,7 @@ npm install -g wetty
 
 adduser --disabled-password --gecos "" trainee
 echo -e "PASSWORD\nPASSWORD" | sudo passwd trainee 
-usermod -aG sudo trainee 
+usermod -aG docker $USER
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
 systemctl restart sshd
 
